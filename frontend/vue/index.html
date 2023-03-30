@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Pulse</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+    <div id="app" v-cloak>
+
+        <section class="bg" v-if="show_page == 0">
+            <!-- landing page -->
+            <!-- word animations -->
+            <div class="display_msg">
+              <span class="one">Hi</span>
+              <span class="two">here's your privacy's</span>
+              <span class="three">heartbeat.</span>
+              <span class="four"></span>
+              <span class="five">Let's</span>
+              <span class="six">keep it</span>
+              <span class="seven">beating</span>
+              <span class="eight">forevor</span>
+              <div class="scan_options">
+                <p @click.prevent="show_search_input_page">website</p>
+                <div>·· AUDIT ··</div>
+                <p @click.prevent="goScanBrowser" class="browser_button">browser</p>
+              </div>
+            </div>
+      
+            <!-- big circle animations -->
+            <div class="loader">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+        </section>
+
+        <!-- other pages -->
+
+        <!-- search page -->
+        <div v-else-if="show_page == 1" class="bg search_page">
+            <p class="privacy_pulse_title">privacy pulse</p>
+            <div class="search_container">
+                <input type="url" v-model="searchInput" @keyup.enter="requestSingleWebCookies" class="search_input" placeholder="type in the website url" required />
+                <button class="search_button button" @click="requestSingleWebCookies" :disabled="!disable_button">Audit</button>
+            </div>
+            <div class="home_button button" @click="goHome">Back to Home</div>
+            <div class="single_web_response" v-if="arrayShowing == 1">
+                <table>
+                    <tr class="table_heading">
+                      <th>Cookie Name</th>
+                      <th>Website</th>
+                      <th>Cookie Duration <span style = "font-size:1.4rem;">(coming soon)</span> </th>
+                      <th>Mordern Security</th>
+                    </tr>
+                    <tr class="list_result_item" v-for="(item,index) in show_single_data" :key="index">
+                        <td>{{item.name}}</td>
+                        <td>{{item.domain}}</td>
+                        <td>{{item.expires}}</td>
+                        <td>{{item.httpOnly}}</td>
+                    </tr>
+                  </table>
+            </div>
+        </div>
+
+        <!-- show response  -->
+        <div class="bg many_web_response" v-else="show_page == 2">
+            <table>
+                <tr class="table_heading">
+                  <th>Cookie Name</th>
+                  <th>Website</th>
+                  <th>Cookie Duration <span style = "font-size:1.4rem;">(coming soon)</span> </th>
+                  <th>Mordern Security</th>
+                </tr>
+                <tr class="list_result_item" v-for="(item,index) in show_single_data" :key="index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.domain}}</td>
+                    <td>{{item.expires}}</td>
+                    <td>{{item.httpOnly}}</td>
+                </tr>
+              </table>
+        </div>
+        
+         <!-- loader -->
+         <div v-show="loading_status==true" class="gooey">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+
+  </body>
+</html>

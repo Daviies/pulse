@@ -1,0 +1,19 @@
+{
+	"manifest_version": 3,
+	"name": "Privacy Pulse",
+	"version": "1.0.0",
+  "description":"create by Davies N (LinkedIn) and Jacob, this extension helps you monitor cookies for any website you're suspicious about",
+	"icons": {
+		"16": "images/16.png",
+		"48": "images/48.png",
+		"128": "images/128.png"
+	},
+	"permissions": ["tabs"],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [{
+		"matches": ["<all_urls>"],
+		"js": ["content.js"]
+	}]
+}
